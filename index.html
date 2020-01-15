@@ -4,11 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="apple-mobile-web-app-title" content="CodePen">
-<title>CodePen - AACoding02-6</title>
+<title>CodePen - AACoding04-6</title>
 <style>
 .correct{
-  background:lightgreen;
+  background:green;
 }
+
 .incorrect{
   background:red;
 }
@@ -17,30 +18,49 @@
 <body translate="no">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<h1> Eric's Super Sick Math Problems</h1>
+<audio id="sad" controls>
+<source src="https://math.seattleacademy.org/garyanderson/snd/sad.mp3" type="audio/mpeg">
+Your browser does not support the audio tag
+</audio>
+<h1>Eric's Super Duper Math Problems</h1>
+<div>Timer: <span id="theTime">0</span> Score: <span id="score">0</span></div>
 <ol>
-<li>\(2^3\)<input data-correct="8" /></li>
-<li>\(\sqrt[3]{8}\)<input data-correct="2" /></li>
-<li>\(10^5\)<input data-correct="100000" /></li>
-<li>\(2+3\)<input data-correct="5" /></li>
-<li>\(10&times4\)<input data-correct="40" /></li>
-<li>\(100 &times 20\)<input data-correct="2000" /></li>
-<li>\(100 - 200\)<input data-correct="-100" /></li>
-<li>\(10.5 + 9.5\)<input data-correct="20" /></li>
-<li>\(10^3\)<input data-correct="1000" /></li>
-<li>\(200000 - (20&times1000)\)<input data-correct="180000" /></li>
+<li>\( 2^3 \) <input data-correct="8" /> </li>
+<li>\( \sqrt[3]{8} \) <input data-correct="2" /></li>
+<li>\( 8^\frac{1}{3} \) <input data-correct="2" /></li>
+<li>\( (\frac{-125}{27})^\tfrac{-2}{3} \) <input data-correct="9/25" /></li>
 </ol>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script id="rendered-js">
+console.clear();
+const sad = document.getElementById("sad");
+setInterval(upTime, 1000);
+
+function upTime() {
+  let theTime = Number($("#theTime").text());
+  theTime = theTime + 1;
+  $("#theTime").text(theTime);
+}
 $("input").change(onChange);
-function onChange(evt){
+
+function onChange(evt) {
   let correct = $(this).data("correct");
   let response = $(this).val();
-  
-  if(correct == response){
-    $(this).removeClass('incorrect').addClass("correct");
+
+  if (correct == response) {
+    $(this)
+      .removeClass("incorrect")
+      .addClass("correct");
+    let theScore = Number($("#score").text());
+    theScore = theScore + 1;
+    $("#score").text(theScore);
   } else {
-    $(this).removeClass('correct').addClass("incorrect");
+    if (Math.random() > 0.1) {
+      sad.play();
+    }
+    $(this)
+      .removeClass("correct")
+      .addClass("incorrect");
   }
 }
     </script>
